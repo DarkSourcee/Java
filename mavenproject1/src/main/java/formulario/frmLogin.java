@@ -113,7 +113,7 @@ public class frmLogin extends javax.swing.JFrame {
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         UsuariosDAO usuario = new UsuariosDAO();
         if (!usuario.verificaLogin(txtLogin.getText(), new String(txtSenha.getPassword()))){
-            JOptionPane.showMessageDialog(rootPane, "Informações inválidas");
+            JOptionPane.showMessageDialog(rootPane, "Informações inválidas","Erro", JOptionPane.WARNING_MESSAGE);
             limpaCampos();
         }else {            
             frmPrincipal frmPrincipal = new frmPrincipal();

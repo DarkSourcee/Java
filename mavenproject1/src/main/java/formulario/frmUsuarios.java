@@ -6,7 +6,10 @@ package formulario;
 
 import classes.Usuarios;
 import classes.UsuariosDAO;
+import java.awt.HeadlessException;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -31,7 +34,7 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnGravar = new javax.swing.JButton();
+        btnInserir = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         lblNome = new javax.swing.JLabel();
         lblEmail = new javax.swing.JLabel();
@@ -40,9 +43,14 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         lblID = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         txtSenha = new javax.swing.JPasswordField();
-        txtID = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
         txtLogin = new javax.swing.JTextField();
+        btnAtualizar = new javax.swing.JButton();
+        btnListar = new javax.swing.JButton();
+        lblPesquisar = new javax.swing.JLabel();
+        txtPesquisa = new javax.swing.JTextField();
+        btnPesquisar = new javax.swing.JButton();
+        txtID = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -50,14 +58,19 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         setTitle("Usuários");
         setName("frmUduario"); // NOI18N
 
-        btnGravar.setText("Gravar");
-        btnGravar.addActionListener(new java.awt.event.ActionListener() {
+        btnInserir.setText("Inserir");
+        btnInserir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGravarActionPerformed(evt);
+                btnInserirActionPerformed(evt);
             }
         });
 
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         lblNome.setText("Nome");
 
@@ -69,37 +82,81 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
 
         lblID.setText("ID");
 
+        btnAtualizar.setText("Atualizar");
+        btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarActionPerformed(evt);
+            }
+        });
+
+        btnListar.setText("Listar");
+        btnListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarActionPerformed(evt);
+            }
+        });
+
+        lblPesquisar.setText("Pesquisar pelo ID");
+
+        btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
+
+        txtID.setEditable(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtEmail)
-                    .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtNome)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnGravar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnExcluir))
-                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblID)
-                    .addComponent(lblNome)
-                    .addComponent(lblLogin)
-                    .addComponent(lblSenha)
-                    .addComponent(txtSenha, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblEmail)
-                    .addComponent(txtLogin))
-                .addContainerGap(21, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnInserir)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnExcluir)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnAtualizar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnListar))
+                            .addComponent(lblLogin)
+                            .addComponent(lblSenha)
+                            .addComponent(lblEmail)
+                            .addComponent(lblNome)
+                            .addComponent(lblID)
+                            .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblPesquisar)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE))))
+                    .addComponent(txtEmail)
+                    .addComponent(txtLogin)
+                    .addComponent(txtSenha))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(lblID)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblID)
+                    .addComponent(lblPesquisar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(13, 13, 13)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPesquisar)
+                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
                 .addComponent(lblNome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -117,39 +174,121 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
                 .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGravar)
-                    .addComponent(btnExcluir))
-                .addContainerGap(18, Short.MAX_VALUE))
+                    .addComponent(btnInserir)
+                    .addComponent(btnExcluir)
+                    .addComponent(btnAtualizar)
+                    .addComponent(btnListar))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
+    private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
 
         Usuarios usuarios = new Usuarios(0, txtNome.getText(), txtEmail.getText(), txtLogin.getText(), txtSenha.getText());
         UsuariosDAO usuDAO = new UsuariosDAO();
         if (usuDAO.usuarioExistente(usuarios.getLogin(), usuarios.getNome(), usuarios.getEmail())){
             JOptionPane.showMessageDialog(null, "Usuário já existente!","Erro", JOptionPane.WARNING_MESSAGE);
         } else {
-            usuDAO.create(usuarios);
+            try {
+                usuDAO.create(usuarios);
+                JOptionPane.showMessageDialog(null, "Adicionado com sucesso!","Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                limpaCampos();
+            }catch(HeadlessException e) {
+                JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage(),"Erro", JOptionPane.ERROR);
+            }
         }
         
-    }//GEN-LAST:event_btnGravarActionPerformed
+    }//GEN-LAST:event_btnInserirActionPerformed
+
+    private void limpaCampos(){
+        txtID.setText("");
+        txtNome.setText("");
+        txtEmail.setText("");
+        txtLogin.setText("");
+        txtSenha.setText("");
+    }
+    
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        Usuarios usuarios = new Usuarios(Integer.parseInt(txtID.getText()));
+        UsuariosDAO usuDAO = new UsuariosDAO();
+        if (JOptionPane.showConfirmDialog(rootPane, "Deseja realmente excluir este registro?","Confirmação",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            if (txtID.getText().trim().isEmpty()){
+                JOptionPane.showMessageDialog(null, "Não existe dados para ser excluídos!","Erro", JOptionPane.WARNING_MESSAGE);
+            } else {
+                try{
+                    usuDAO.delete(usuarios);
+                    JOptionPane.showMessageDialog(null, "Usuário excluido com sucesso!","Erro", JOptionPane.INFORMATION_MESSAGE);
+                    limpaCampos();
+                }catch(HeadlessException e) {
+                    JOptionPane.showMessageDialog(null, "Erro:" + e.getMessage(),"Erro", JOptionPane.ERROR_MESSAGE);
+                }
+
+            }
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
+        frmListagemUsuarios frmListagemUsuarios = new frmListagemUsuarios();
+        this.dispose();
+        frmListagemUsuarios.setVisible(true);
+    }//GEN-LAST:event_btnListarActionPerformed
+
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        UsuariosDAO UsuariosDAO = new UsuariosDAO();
+        
+        Usuarios a = UsuariosDAO.findById(Integer.valueOf(txtPesquisa.getText()));
+        
+        if (a == null) {
+            JOptionPane.showMessageDialog(null, "Não foi possível encontrar resultado","Erro", JOptionPane.INFORMATION_MESSAGE);
+        }else {
+            txtID.setText(String.valueOf(a.getId()));
+            txtNome.setText(String.valueOf(a.getNome()));
+            txtEmail.setText(String.valueOf(a.getEmail()));
+            txtLogin.setText(String.valueOf(a.getLogin()));
+        }
+    }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
+        Usuarios usuarios = new Usuarios(Integer.parseInt(txtID.getText()), txtNome.getText(), txtEmail.getText(), txtLogin.getText(), txtSenha.getText());
+        UsuariosDAO usuarioDAO = new UsuariosDAO();
+        
+        if (JOptionPane.showConfirmDialog(rootPane, "Deseja realmente atualizar este registro?","Confirmação",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+        
+            if (!txtID.getText().trim().isEmpty()) {
+                try{
+                    usuarioDAO.update(usuarios);
+                    JOptionPane.showMessageDialog(null, "Usuário atualizado com sucesso","Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                }catch(HeadlessException e){
+                    JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage(),"Erro", JOptionPane.ERROR);
+                } catch (SQLException ex) {
+                    Logger.getLogger(frmUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }else {
+                JOptionPane.showMessageDialog(null, "Erro: Não foi encontrado nenhum usuário","Erro", JOptionPane.ERROR);
+            }
+        }
+    }//GEN-LAST:event_btnAtualizarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnExcluir;
-    private javax.swing.JButton btnGravar;
+    private javax.swing.JButton btnInserir;
+    private javax.swing.JButton btnListar;
+    private javax.swing.JButton btnPesquisar;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblID;
     private javax.swing.JLabel lblLogin;
     private javax.swing.JLabel lblNome;
+    private javax.swing.JLabel lblPesquisar;
     private javax.swing.JLabel lblSenha;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtLogin;
     private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtPesquisa;
     private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
 }

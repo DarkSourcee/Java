@@ -22,6 +22,14 @@ public class Usuarios {
         this.login = login;
         this.senha = senha;
     }
+    
+    public Usuarios(int id) {
+        this.id = id;
+    }
+    
+    public Usuarios() {
+        
+    }
 
     public int getId() {
         return id;
